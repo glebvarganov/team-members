@@ -15,12 +15,14 @@ class CreateProjectsTable extends Migration
     {
         Schema::create('projects', function (Blueprint $table) {
             $table->id();
+            $table->uuid('uuid');
             $table->string('name');
             $table->string('description')->nullable();
             $table->date('timeline_from')->nullable();
             $table->date('timeline_to')->nullable();
             $table->string('color');
             $table->set('type', ['only-me', 'team-members', 'organization']);
+            $table->foreignId('team_id')->constrained()->onDelete('cascade');
             $table->timestamps();
         });
     }
